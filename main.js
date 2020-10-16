@@ -19,6 +19,12 @@ buttonClear.addEventListener("click", function () {
 function FromNumberToWord(inputNumber) {
   const inputNumberArray = [];
   inputNumberArray.push(...inputNumber);
+  const regularExpression = /^[0-9]/;
+  if (inputNumberArray.length > 3 || !regularExpression.test(inputNumber)) {
+    return "Error! Please enter a number between 0 and 999 (inclusive).";
+  } else if (inputNumberArray.length === 1 && inputNumberArray[0] === "0") {
+    return "ноль гривен";
+  }
   const units = {
     0: "гривен",
     1: "одна гривна",
@@ -89,13 +95,13 @@ function FromNumberToWord(inputNumber) {
     }
   }
   let result = [wordHundred, wordTen, wordUnit];
-  if (wordTen === undefined){
-    result = [wordHundred, wordUnit];
-  }
-  if (inputNumberArray.length > 3) {
-    result = "Error! Please enter a number between 0 and 999 (inclusive).";
-    return result;
-  } else {
-    return result.join(" ");
-  }
+  result = result.filter(function (element) {
+    //return element ? true : false; // тернарный оператор отсекает underfind, 0, null
+    if (element !== undefined) {
+      return true;
+    } else { 
+      return false; 
+    }
+  })
+  return result.join(" ");
 }
