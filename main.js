@@ -89,6 +89,9 @@ function FromNumberToWord(inputNumber) {
     }
   }
   let result = [wordHundred, wordTen, wordUnit];
+  if (wordTen === undefined){
+    result = [wordHundred, wordUnit];
+  }
   if (inputNumberArray.length > 3) {
     result = "Error! Please enter a number between 0 and 999 (inclusive).";
     return result;
